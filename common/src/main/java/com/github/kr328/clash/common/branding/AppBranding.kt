@@ -10,7 +10,7 @@ import com.github.kr328.clash.common.BuildConfig
  *
  * NOTE: this is *fork / app* identity. It is deliberately distinct from the operator
  * per-subscription branding feature (`BrandHeaders`, `BrandThemeApplier`, …) in the
- * neighbouring `*/branding/` packages, which applies a VPN operator's brand pushed over
+ * neighbouring `branding` packages, which applies a VPN operator's brand pushed over
  * `X-Brand-*` HTTP headers.
  */
 object AppBranding {
