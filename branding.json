@@ -1,0 +1,13 @@
+{
+  "appName": "ClashFest",
+  "applicationId": "com.nemu.clashfest.clash",
+  "packageId": "clashfest",
+  "primaryScheme": "clashfest",
+  "compatSchemes": ["clash", "clashmeta"],
+  "vpnSessionName": "ClashFest",
+  "userAgentProduct": "ClashFest",
+  "logTag": "ClashFest",
+  "updateRepo": "kirisame-meguru/ClashFest",
+  "repoUrl": "https://github.com/kirisame-meguru/ClashFest",
+  "telegramUrl": "https://t.me/nemux_dev"
+}

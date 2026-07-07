@@ -84,7 +84,7 @@
 
                 <data android:scheme="clash"/>
                 <data android:scheme="clashmeta"/>
-                <data android:scheme="clashfest"/>
+                <data android:scheme="${brandPrimaryScheme}"/>
                 <data android:host="install-config"/>
                 <data android:host="installconfig"/>
             </intent-filter>

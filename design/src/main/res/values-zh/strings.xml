@@ -15,7 +15,6 @@
     <string name="clash_logcat">Clash 日志捕捉工具</string>
     <string name="create_profile">创建配置</string>
     <string name="dark_mode">暗黑模式</string>
-    <string name="launch_name_meta">ClashFest</string>
     <string name="app_language">应用语言</string>
     <string name="subscription_identity">Schemes 与 HWID</string>
     <string name="subscription_hwid_title">当前设备 HWID</string>
@@ -733,8 +732,6 @@
     <string name="app_routing_filter_com">com.*</string>
     <string name="app_routing_filter_other">其他</string>
     <string name="app_routing_filter_ru">ru.*</string>
-    <string name="application_name_alpha">ClashFest</string>
-    <string name="application_name_meta">ClashFest</string>
     <string name="connections_app_fmt">应用:%1$s</string>
     <string name="connections_app_icon">应用图标</string>
     <string name="connections_app_unknown">未知应用</string>
@@ -873,7 +870,6 @@
     <string name="home_qr">二维码</string>
     <string name="keep_connections_on_old_proxy">切换后保留旧代理上的连接</string>
     <string name="keep_connections_on_old_proxy_summary">默认情况下,手动切换代理后 ClashFest 会关闭活动连接,使新流量立即走所选代理。开启此项可让正在进行的连接保留在旧代理上——适合不想中断的大文件下载、视频流或游戏会话。</string>
-    <string name="launch_name_alpha">ClashFest</string>
     <string name="main_activity_summary">实时连接与诊断</string>
     <string name="main_activity_title">活动</string>
     <string name="main_mode_global_summary">所有流量都通过所选服务器。</string>

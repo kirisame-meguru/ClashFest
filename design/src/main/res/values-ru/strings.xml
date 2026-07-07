@@ -1028,8 +1028,6 @@
     <string name="app_routing_filter_com">com.*</string>
     <string name="app_routing_filter_other">Прочее</string>
     <string name="app_routing_filter_ru">ru.*</string>
-    <string name="application_name_alpha">ClashFest</string>
-    <string name="application_name_meta">ClashFest</string>
     <string name="blacklist">Чёрный список</string>
     <string name="docs_url_operator_headers">https://github.com/Nemu-x/ClashFest/wiki/Operator-API-Headers</string>
     <string name="docs_url_operator_overview">https://github.com/Nemu-x/ClashFest/wiki/Operator-API</string>
@@ -1049,8 +1047,6 @@
     <string name="import_done_named">Импортировано как «%s»</string>
     <string name="import_resolving">Получение подписки…</string>
     <string name="inline">Встроенный</string>
-    <string name="launch_name_alpha">ClashFest</string>
-    <string name="launch_name_meta">ClashFest</string>
     <string name="main_open_subscription_identity_summary">HWID, схема clashfest:// и кнопки копирования</string>
     <string name="operator_api_spec_url">https://github.com/Nemu-x/ClashFest/wiki/Operator-API</string>
     <string name="proxy_open_yaml">YAML прокси из конфига</string>

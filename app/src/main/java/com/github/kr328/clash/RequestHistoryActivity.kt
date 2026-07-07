@@ -2,6 +2,7 @@ package com.github.kr328.clash
 
 import android.net.Uri
 import androidx.activity.result.contract.ActivityResultContracts
+import com.github.kr328.clash.common.branding.AppBranding
 import com.github.kr328.clash.common.log.Log
 import com.github.kr328.clash.design.RequestHistoryDesign
 import com.github.kr328.clash.design.R
@@ -74,7 +75,7 @@ class RequestHistoryActivity : BaseActivity<RequestHistoryDesign>() {
                                 val snapshot = querySnapshot() ?: return@launch
                                 val output = startActivityForResult(
                                     ActivityResultContracts.CreateDocument("text/csv"),
-                                    "clashfest-request-history.csv",
+                                    "${AppBranding.packageId}-request-history.csv",
                                 )
                                 if (output != null) {
                                     runCatching {

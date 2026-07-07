@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import com.github.kr328.clash.BuildConfig
+import com.github.kr328.clash.common.branding.AppBranding
 import com.github.kr328.clash.common.network.AppNetworkDefaults
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,12 +30,12 @@ object GitHubReleaseUpdate {
 
     suspend fun fetchLatest(): Info? = withContext(Dispatchers.IO) {
         runCatching {
-            val endpoint = "https://api.github.com/repos/Nemu-x/ClashFest/releases/latest"
+            val endpoint = AppBranding.updateApiEndpoint
             val text = HttpTextFetcher.fetchUtf8(
                 endpoint,
                 connectTimeoutMs = AppNetworkDefaults.CONNECT_TIMEOUT_MS,
                 readTimeoutMs = AppNetworkDefaults.READ_TIMEOUT_MS,
-                headers = mapOf("User-Agent" to "ClashFest/${BuildConfig.VERSION_NAME}"),
+                headers = mapOf("User-Agent" to AppBranding.userAgent(BuildConfig.VERSION_NAME)),
             )
             val json = JSONObject(text)
             val assets = json.optJSONArray("assets")
@@ -94,7 +95,7 @@ object GitHubReleaseUpdate {
         apkName: String?,
     ): Long {
         val dm = context.getSystemService(DownloadManager::class.java) ?: return -1L
-        val fileName = (apkName ?: "clashfest-$tagName.apk")
+        val fileName = (apkName ?: "${AppBranding.packageId}-$tagName.apk")
             .replace(Regex("""[^A-Za-z0-9._-]"""), "_")
         val request = DownloadManager.Request(Uri.parse(apkUrl))
             .setTitle(context.getString(com.github.kr328.clash.design.R.string.about_update_available, tagName))

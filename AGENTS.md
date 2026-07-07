@@ -24,6 +24,8 @@ xuhaoyang/ClashForAndroid
 - `service/` — `TunService` (`VpnService`), `ClashRuntime` модули, импорт/обработка профилей, `ServiceStore`.
 - `hideapi/` — заглушки скрытых API.
 
+**Брендинг:** вся идентичность приложения (имя, схемы deeplink, репозиторий, User-Agent, имя VPN-сессии) вынесена в единый `branding.json` в корне репозитория. Его парсит корневой `build.gradle.kts` и раздаёт значения в `applicationId`, `resValue`, `manifestPlaceholders` и `BuildConfig.BRAND_*`; в рантайме читается через `AppBranding`. Ребрендинг = правка одного файла. Подробности — [docs/branding.md](docs/branding.md). Не путать с операторским брендингом по подписке (`Brand*` в `*/branding/`, заголовки `X-Brand-*`).
+
 ## 1. Цели проекта (приоритеты)
 
 1. **Безопасность пользователя по умолчанию.** Любая утечка трафика, любой открытый локальный порт без авторизации, любой прямой доступ приложений к `tun0` — это баг приоритета P0.

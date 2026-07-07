@@ -1,6 +1,7 @@
 package com.github.kr328.clash.common.util
 
 import android.content.Context
+import com.github.kr328.clash.common.branding.AppBranding
 import org.json.JSONObject
 import java.util.UUID
 
@@ -46,7 +47,7 @@ object SubscriptionRequestHeaders {
         } catch (_: Exception) {
             "0"
         }
-        return "ClashFest/$ver"
+        return AppBranding.userAgent(ver)
     }
 
     fun build(context: Context, userAgentOverride: String? = null): Map<String, String> {

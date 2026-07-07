@@ -1,7 +1,14 @@
 package com.github.kr328.clash.common.log
 
 object Log {
-    private const val TAG = "ClashFest"
+    // Read from branding.json via BuildConfig.BRAND_LOG_TAG, using the same defensive
+    // reflection as debugLoggingEnabled below; falls back to the default brand name.
+    private val TAG: String by lazy {
+        runCatching {
+            val clazz = Class.forName("com.github.kr328.clash.common.BuildConfig")
+            clazz.getField("BRAND_LOG_TAG").get(null) as String
+        }.getOrDefault("ClashFest")
+    }
     private val debugLoggingEnabled: Boolean by lazy {
         runCatching {
             val clazz = Class.forName("com.github.kr328.clash.common.BuildConfig")

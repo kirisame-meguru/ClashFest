@@ -1,5 +1,7 @@
 package com.github.kr328.clash.log
 
+import com.github.kr328.clash.BuildConfig
+
 object SystemLogcat {
     private val command = arrayOf(
         "logcat",
@@ -8,7 +10,7 @@ object SystemLogcat {
         "Go",
         "DEBUG",
         "AndroidRuntime",
-        "ClashFest",
+        BuildConfig.BRAND_LOG_TAG,
         "LwIP",
     )
 

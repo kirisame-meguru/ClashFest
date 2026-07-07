@@ -2,6 +2,7 @@ package com.github.kr328.clash.companion
 
 import android.content.Context
 import android.os.Build
+import com.github.kr328.clash.BuildConfig
 import com.github.kr328.clash.companion.protocol.Ids
 
 /**
@@ -45,12 +46,12 @@ class CompanionStore(context: Context) {
         set(value) = prefs.edit().putString(KEY_DISPLAY_NAME, value).apply()
 
     private fun defaultName(): String {
-        val model = Build.MODEL?.takeIf { it.isNotBlank() } ?: "ClashFest"
+        val model = Build.MODEL?.takeIf { it.isNotBlank() } ?: BuildConfig.BRAND_APP_NAME
         return model
     }
 
     companion object {
-        const val APP_ID = "clashfest"
+        val APP_ID = BuildConfig.BRAND_PACKAGE_ID
         private const val KEY_AGENT_ENABLED = "agent_enabled"
         private const val KEY_DEVICE_ID = "device_id"
         private const val KEY_DISPLAY_NAME = "display_name"

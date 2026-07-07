@@ -372,7 +372,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
             // Brand name always wins for the header title; announcement no longer
             // doubles into the header summary (the banner below carries it).
             val brandName = brandHolder.manifest.name?.takeIf { it.isNotBlank() }
-            binding.mainHeaderTitle.text = brandName ?: context.getString(R.string.launch_name_meta)
+            binding.mainHeaderTitle.text = brandName ?: context.getString(R.string.launch_name)
             binding.mainHeaderSummary.visibility = View.GONE
             binding.mainHeaderSummary.setOnClickListener(null)
             binding.mainHeaderSummary.isClickable = false
@@ -489,7 +489,7 @@ class MainDesign(context: Context) : Design<MainDesign.Request>(context) {
         // Brand name (fallback to ClashFest if operator didn't supply — the page only
         // exists when brand is active, so something meaningful should always be shown).
         binding.operatorName.text = brand.name?.takeIf { it.isNotBlank() }
-            ?: context.getString(R.string.launch_name_meta)
+            ?: context.getString(R.string.launch_name)
 
         val tagline = brand.tagline?.takeIf { it.isNotBlank() }
         if (tagline != null) {

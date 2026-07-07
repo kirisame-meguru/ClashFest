@@ -3,6 +3,7 @@ package com.github.kr328.clash
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import com.github.kr328.clash.common.branding.AppBranding
 import com.github.kr328.clash.common.util.SubscriptionDeviceHeaders
 import com.github.kr328.clash.design.R
 import com.github.kr328.clash.design.SubscriptionIdentityDesign
@@ -33,7 +34,7 @@ class SubscriptionIdentityActivity : BaseActivity<SubscriptionIdentityDesign>() 
                         }
 
                         SubscriptionIdentityDesign.Request.CopySchemes -> {
-                            copyToClipboard("clashfest schemes", schemes)
+                            copyToClipboard("${AppBranding.packageId} schemes", schemes)
                             design.showToast(R.string.copied, ToastDuration.Short)
                         }
 
@@ -65,7 +66,7 @@ class SubscriptionIdentityActivity : BaseActivity<SubscriptionIdentityDesign>() 
     }
 
     private fun buildSupportedSchemeText(): String {
-        return "clashfest://installconfig?url=<encoded-url>"
+        return "${AppBranding.deepLinkPrefix}installconfig?url=<encoded-url>"
     }
 
     private fun buildHwidDiagnosticsText(requestHeaders: Map<String, String>): String {
@@ -96,7 +97,7 @@ class SubscriptionIdentityActivity : BaseActivity<SubscriptionIdentityDesign>() 
         return buildString {
             appendLine(serverSummary)
             appendLine()
-            appendLine("Request headers sent by ClashFest:")
+            appendLine("Request headers sent by ${AppBranding.appName}:")
             appendLine("- x-hwid: ${requestHeaders["x-hwid"].orEmpty().ifBlank { "missing" }}")
             appendLine("- x-device-os: ${requestHeaders["x-device-os"].orEmpty().ifBlank { "missing" }}")
             appendLine("- x-ver-os: ${requestHeaders["x-ver-os"].orEmpty().ifBlank { "missing" }}")

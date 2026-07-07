@@ -2,6 +2,7 @@
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.BaseExtension
+import groovy.json.JsonSlurper
 import java.net.URL
 import java.util.*
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -21,6 +22,19 @@ buildscript {
         classpath(libs.build.golang)
     }
 }
+
+// Branding single source of truth. Every app-identity value (names, schemes, repo,
+// user-agent, VPN session) is read from this one file and fed to applicationId,
+// resValue, manifestPlaceholders and BuildConfig below. Forking / re-skinning = edit
+// branding.json (see docs/branding.md). This is fork/app identity — distinct from the
+// operator per-subscription "Brand*" feature under */branding/.
+val brandingFile = rootProject.file("branding.json")
+require(brandingFile.exists()) { "branding.json missing at repo root — see docs/branding.md" }
+
+@Suppress("UNCHECKED_CAST")
+val branding = JsonSlurper().parse(brandingFile) as Map<String, Any?>
+fun brandStr(key: String): String =
+    (branding[key] as? String) ?: error("branding.json missing string key: $key")
 
 subprojects {
     repositories {
@@ -49,7 +63,7 @@ subprojects {
         defaultConfig {
             if (isApp) {
                 val customApplicationId = queryConfigProperty("custom.application.id") as? String?
-                applicationId = customApplicationId.takeIf { it?.isNotBlank() == true } ?: "com.nemu.clashfest.clash"
+                applicationId = customApplicationId.takeIf { it?.isNotBlank() == true } ?: brandStr("applicationId")
             }
 
             project.name.let { name ->
@@ -66,6 +80,38 @@ subprojects {
             resValue("string", "release_name", "v$versionName")
             resValue("integer", "release_code", "$versionCode")
 
+            // Branding fields, injected into every module's BuildConfig from branding.json.
+            buildConfigField("String", "BRAND_APP_NAME", "\"${brandStr("appName")}\"")
+            buildConfigField("String", "BRAND_USER_AGENT_PRODUCT", "\"${brandStr("userAgentProduct")}\"")
+            buildConfigField("String", "BRAND_LOG_TAG", "\"${brandStr("logTag")}\"")
+            buildConfigField("String", "BRAND_PACKAGE_ID", "\"${brandStr("packageId")}\"")
+            buildConfigField("String", "BRAND_PRIMARY_SCHEME", "\"${brandStr("primaryScheme")}\"")
+            buildConfigField("String", "BRAND_UPDATE_REPO", "\"${brandStr("updateRepo")}\"")
+            buildConfigField("String", "BRAND_REPO_URL", "\"${brandStr("repoUrl")}\"")
+            buildConfigField("String", "BRAND_TELEGRAM_URL", "\"${brandStr("telegramUrl")}\"")
+            buildConfigField("String", "BRAND_VPN_SESSION", "\"${brandStr("vpnSessionName")}\"")
+
+            // Manifest deep-link scheme (app manifest resolves ${brandPrimaryScheme}).
+            manifestPlaceholders["brandPrimaryScheme"] = brandStr("primaryScheme")
+
+            // Brand strings that were static in strings.xml, now sourced from branding.json.
+            // Each is emitted in exactly the module that owns/consumes it (no cross-module
+            // resource-merge collision).
+            when (project.name) {
+                // design owns the user-facing name strings; the app manifest and design
+                // layouts both resolve them transitively (app depends on design), so a
+                // single definition here avoids a cross-module resource-merge collision.
+                "design" -> {
+                    resValue("string", "application_name", brandStr("appName"))
+                    resValue("string", "launch_name", brandStr("appName"))
+                    resValue("string", "clashfest_repo_url", brandStr("repoUrl"))
+                    resValue("string", "clashfest_telegram_url", brandStr("telegramUrl"))
+                }
+                "service" -> {
+                    resValue("string", "vpn_session_name", brandStr("vpnSessionName"))
+                }
+            }
+
             ndk {
                 abiFilters += listOf("arm64-v8a", "armeabi-v7a", "x86", "x86_64")
             }
@@ -79,7 +125,7 @@ subprojects {
             if (!isApp) {
                 consumerProguardFiles("consumer-rules.pro")
             } else {
-                setProperty("archivesBaseName", "clashfest-v$versionName")
+                setProperty("archivesBaseName", "${brandStr("packageId")}-v$versionName")
             }
         }
 
@@ -107,11 +153,6 @@ subprojects {
                     versionNameSuffix = ".Alpha"
                 }
 
-                if (isApp) {
-                    resValue("string", "launch_name", "@string/launch_name_alpha")
-                    resValue("string", "application_name", "@string/application_name_alpha")
-                }
-
                 if (isApp && !removeSuffix) {
                     applicationIdSuffix = ".alpha"
                 }
@@ -122,10 +163,6 @@ subprojects {
                 dimension = flavorDimensionList[0]
                 if (!removeSuffix) {
                     versionNameSuffix = ".Meta"
-                }
-                if (isApp) {
-                    resValue("string", "launch_name", "@string/launch_name_meta")
-                    resValue("string", "application_name", "@string/application_name_meta")
                 }
 
                 if (isApp && !removeSuffix) {

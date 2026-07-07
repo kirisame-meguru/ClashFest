@@ -1,6 +1,7 @@
 package com.github.kr328.clash.common.network
 
 import android.content.Context
+import com.github.kr328.clash.common.branding.AppBranding
 
 /** Shared timeouts and UA defaults for app-initiated HTTP (metadata, GitHub API, helpers). */
 object AppNetworkDefaults {
@@ -13,6 +14,6 @@ object AppNetworkDefaults {
         } catch (_: Exception) {
             "0"
         }
-        return "ClashFest/$ver"
+        return AppBranding.userAgent(ver)
     }
 }

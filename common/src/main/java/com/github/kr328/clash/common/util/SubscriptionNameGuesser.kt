@@ -2,6 +2,7 @@ package com.github.kr328.clash.common.util
 
 import android.content.Context
 import android.util.Base64
+import com.github.kr328.clash.common.branding.AppBranding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -46,7 +47,7 @@ object SubscriptionNameGuesser {
                     } catch (_: Exception) {
                         "0"
                     }
-                    setRequestProperty("User-Agent", "ClashFest/$ver")
+                    setRequestProperty("User-Agent", AppBranding.userAgent(ver))
                     SubscriptionHttpHeaders.applyTo(this, context)
                 }
                 try {
