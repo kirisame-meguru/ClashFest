@@ -1,6 +1,6 @@
 {
-  "appName": "ClashFest",
-  "applicationId": "com.nemu.clashfest.clash",
+  "appName": "ClashFest2",
+  "applicationId": "com.nemu.xclashfest.clash",
   "packageId": "clashfest",
   "primaryScheme": "clashfest",
   "compatSchemes": ["clash", "clashmeta"],
