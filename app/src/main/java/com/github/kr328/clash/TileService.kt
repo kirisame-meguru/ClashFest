@@ -11,6 +11,7 @@ import android.net.VpnService
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import androidx.annotation.RequiresApi
+import com.github.kr328.clash.design.R as DesignR
 import com.github.kr328.clash.common.compat.registerReceiverCompat
 import com.github.kr328.clash.common.constants.Intents
 import com.github.kr328.clash.common.constants.Permissions
@@ -86,7 +87,7 @@ class TileService : TileService() {
             Tile.STATE_INACTIVE
 
         tile.label = if (currentProfile.isEmpty())
-            getText(R.string.launch_name)
+            getText(DesignR.string.launch_name)
         else
             currentProfile
 

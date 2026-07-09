@@ -91,13 +91,13 @@ class QuickTileStartActivity : ComponentActivity(), CoroutineScope by MainScope(
                 CHANNEL_TILE_PERMISSION,
                 NotificationManagerCompat.IMPORTANCE_DEFAULT
             )
-                .setName(getString(AppR.string.launch_name))
+                .setName(getString(DesignR.string.launch_name))
                 .setDescription(getString(DesignR.string.quick_tile_permission_denied_notification))
                 .build()
         )
         val notification = NotificationCompat.Builder(this, CHANNEL_TILE_PERMISSION)
             .setSmallIcon(AppR.drawable.ic_qs_tile)
-            .setContentTitle(getString(AppR.string.launch_name))
+            .setContentTitle(getString(DesignR.string.launch_name))
             .setContentText(getString(DesignR.string.quick_tile_permission_denied_notification))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
